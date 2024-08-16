@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/css/GestorHabitosStyle.css">
+</head>
+<body>  
+    <%- include('partial/_header') %>  <!-- Incluir el header -->
+    
+    <main>
+        <h2>Gestor de Hábitos</h2>
+        
+        <!-- Botones para Registrar, Modificar y Eliminar Hábitos -->
+        <div class="button-container">
+            <button class="btn-registrar" onclick="window.location.href='/crear-habitos'">Registrar Hábito</button>
+            <button class="btn-modificar" onclick="window.location.href='/modificar-habito'">Modificar Hábito</button>
+            <button class="btn-eliminar" onclick="window.location.href='/eliminar-habito'">Eliminar Hábito</button>
+        </div>
+
+        <!-- Matriz para mostrar los hábitos -->
+        <table class="habit-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Hábito</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% habitos.forEach(habito => { %>
+                    <tr>
+                        <td><%= habito.HABITO_ID %></td>
+                        <td><%= habito.HABITO_NOM %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </main>
+
+    <%- include('partial/_footer') %>  <!-- Incluir el footer -->
+</body>
+</html>
