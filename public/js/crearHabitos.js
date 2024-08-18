@@ -38,7 +38,7 @@ document.getElementById('register-habit-form').addEventListener('submit', functi
     .then(data => {
         if (data.success) {
             alert('Hábito creado con éxito');
-            window.location.href = '/'; // Redirigir al gestor de hábitos
+            window.location.href = '/gestor-habitos'; // Redirigir al gestor de hábitos
         } else {
             alert('Hubo un problema al crear el hábito: ' + data.error);
         }

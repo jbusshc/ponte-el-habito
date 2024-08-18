@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= titulo %></title>
-    <link rel="stylesheet" href="/css/modificarReglasStyle.css">
+    <link rel="stylesheet" href="/css/modificarObjetivosStyle.css">
     
     <!-- Incluir CSS de Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
@@ -13,15 +13,15 @@
     <%- include('partial/_header') %>  <!-- Incluir el header -->
     
     <main>
-        <h1>Modificar Regla de Productividad</h1>
+        <h1>Modificar Objetivo</h1>
         
-        <!-- Formulario para modificar una regla -->
-        <form id="modify-rule-form">
-            <label for="rule-listbox">Seleccione una regla para modificar:</label>
-            <select id="rule-listbox" name="rule-listbox">
+        <!-- Formulario para modificar un objetivo -->
+        <form id="modify-objective-form">
+            <label for="objective-listbox">Seleccione un objetivo para modificar:</label>
+            <select id="objective-listbox" name="rule-listbox">
                 <option value="" disabled selected>Seleccione una regla</option>
-                <% reglas.forEach(regla => { %>
-                    <option value="<%= regla.REGLA_ID %>"><%=regla.REGLA_NOM%></option>
+                <% objetivos.forEach(objetivo => { %>
+                    <option value="<%= objetivo.OBJETIVO_ID%>"><%=objetivo.OBJETIVO_NOM%></option>
                 <% }) %>
             </select>
 
@@ -53,7 +53,7 @@
             </div>
 
             <button type="submit" class="btn-confirm">Aceptar</button>
-            <button type="button" class="btn-back" onclick="window.location.href='/gestor-regla';">Volver</button>
+            <button type="button" class="btn-back" onclick="window.location.href='/gestor-habitos';">Volver</button>
         </form>
     </main>
 
@@ -67,7 +67,7 @@
         $(document).ready(function() {
             $('#habit-list').select2({
                 tags: false,
-                placeholder: "Selecciona uno o más hábitos",
+                placeholder: "Selecciona un hábito",
                 allowClear: true
             });
         });

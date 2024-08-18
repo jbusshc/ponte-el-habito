@@ -234,12 +234,12 @@ class Regla {
 class Objetivo {
     constructor() {}
 
-    async crear_objetivo(p_idh, p_fechaini, p_fechafin, p_repeticiones) {
-        let sql = 'INSERT INTO OBJETIVO (OBJETIVO_IDH, OBJETIVO_FECHAINI, OBJETIVO_FECHAFIN, OBJETIVO_REPETICIONES) VALUES (?, ?, ?, ?)';
+    async crear_objetivo(p_idh, p_fechaini, p_fechafin, p_repeticiones, p_nombre) {
+        let sql = 'INSERT INTO OBJETIVO (OBJETIVO_IDH, OBJETIVO_FECHAINI, OBJETIVO_FECHAFIN, OBJETIVO_REPETICIONES, OBJETIVO_NOM) VALUES (?, ?, ?, ?, ?)';
         let connection;
         try {
             connection = await pool.getConnection();
-            let results = await connection.query(sql, [p_idh, p_fechaini, p_fechafin, p_repeticiones]);
+            let results = await connection.query(sql, [p_idh, p_fechaini, p_fechafin, p_repeticiones, p_nombre]);
             console.log('Objetivo creado con ID: ' + results.insertId);
         } catch (err) {
             console.error('Error al crear el objetivo: ' + err.stack);

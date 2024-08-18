@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/css/eliminarHabitosStyle.css">
+</head>
+<body>
+    <%- include('partial/_header') %>  <!-- Incluir el header -->
+    
+    <main>
+        <h1>Eliminar Objetivo</h1>
+
+        <!-- Listbox para seleccionar los Objetivos -->
+        <label for="objetivo-listbox">Seleccione un Objetivo para eliminar:</label>
+        <select id="objetivo-listbox">
+            <option value="" disabled selected>Seleccione un Objetivo</option>
+            <% objetivos.forEach(objetivo => { %>
+                <option value="<%= objetivo.OBJETIVO_ID %>">
+                    <%= objetivo.OBJETIVO_NOM %>
+                </option>
+            <% }) %>
+        </select>
+
+        <button id="delete-button" class="btn-delete">Eliminar Objetivo</button>
+    </main>
+
+   
+    <!-- Incluir el archivo JavaScript -->
+    <script src="/js/eliminarObjetivo.js"></script>
+</body>
+</html>
