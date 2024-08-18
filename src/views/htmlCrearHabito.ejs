@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/css/crearHabitosStyle.css">
+</head>
+<body>
+    <%- include('partial/_header') %>  <!-- Incluir el header -->
+
+    <main>
+        <h2>Crear un nuevo hábito</h2>
+
+        <!-- Formulario para crear un hábito -->
+        <form id="register-habit-form">
+            <label for="habit-name">Nombre del hábito:</label>
+            <input type="text" id="habit-name" name="habitName" required placeholder="Nombre del hábito">
+
+            <label for="habit-type">Tipo de hábito:</label>
+            <select id="habit-type" name="habitType" required>
+                <option value="" disabled selected>Seleccione un tipo de hábito</option>
+                <option value="binary">Binario</option>
+                <option value="quantitative">Cuantitativo</option>
+            </select>
+
+            <!-- Elementos que se habilitarán dinámicamente -->
+            <div id="dynamic-elements">
+                <input type="text" id="textbox1" name="cantidad" style="display: none;" placeholder="Cantidad de repeticiones">
+                
+                <select id="listbox" name="tipolim" style="display: none;">
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="<="><=</option>
+                    <option value="<"><</option>
+                    <option value=">=">>=</option>
+                    <option value=">">></option>
+                    <option value="=">=</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-confirm">Aceptar</button>
+            <button type="button" class="btn-back" onclick="window.location.href='/gestor-habitos';">Volver</button>
+        </form>
+    </main>
+
+    //
+
+    <!-- Incluir el archivo JavaScript -->
+    <script src="/js/crearHabitos.js"></script>
+</body>
+</html>

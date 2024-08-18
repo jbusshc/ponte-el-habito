@@ -2,6 +2,9 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+// Configurar el middleware para manejar JSON en las solicitudes
+app.use(express.json());
+
 // Configurar el motor de plantillas EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
@@ -10,17 +13,28 @@ app.set('views', path.join(__dirname, 'src/views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas
-const landingRoutes = require('./src/routes/Landing');
-const gestorReglasRoutes = require('./src/routes/GestorReglas');
-const gestorHabitosRoutes = require('./src/routes/GestorHabitos');
-const crearHabitoRoutes = require('./src/routes/CrearHabito');
-const modificarHabitosRoutes = require('./src/routes/ModificarHabito')
-// Usar Rutas
-app.use('/', landingRoutes);
-app.use('/', gestorReglasRoutes);
-app.use('/', gestorHabitosRoutes);
+const paginaInicioRoutes = require('./src/routes/paginaInicio');
+const gestorHabitoRoutes = require('./src/routes/gestorHabito');
+const crearHabitoRoutes = require('./src/routes/crearHabito');
+const modificarHabitoRoutes = require('./src/routes/modificarHabito');
+const eliminarHabitoRoutes = require('./src/routes/eliminarHabito');
+
+const gestorReglaRoutes = require('./src/routes/gestorRegla');
+const crearReglaRoutes = require('./src/routes/crearRegla');
+const modificarReglaRoutes = require('./src/routes/modificarRegla');
+const eliminarReglaRoutes = require('./src/routes/eliminarRegla');
+
+
+app.use('/', paginaInicioRoutes);
+app.use('/', gestorHabitoRoutes);
 app.use('/', crearHabitoRoutes);
-app.use('/', modificarHabitosRoutes);
+app.use('/', modificarHabitoRoutes);
+app.use('/', eliminarHabitoRoutes);
+
+app.use('/', gestorReglaRoutes);
+app.use('/', crearReglaRoutes);
+app.use('/', modificarReglaRoutes);
+app.use('/', eliminarReglaRoutes);
 
 
 // Iniciar el servidor en el puerto 3000

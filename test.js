@@ -2,9 +2,9 @@ const mariadb = require('mariadb');
 
 // Crear un pool de conexiones
 const pool = mariadb.createPool({
-    host: '127.0.0.1',       // Host de la base de datos
+    host: 'localhost',       // Host de la base de datos
     user: 'root',    // Usuario de la base de datos
-    password: '123', // Contraseña de la base de datos
+    password: '', // Contraseña de la base de datos
     database: 'ponteelhabito', // Nombre de la base de datos
     connectionLimit: 5       // Número máximo de conexiones en el pool
 });
@@ -89,6 +89,30 @@ class Habito {
         if (connection) connection.release(); // Liberar la conexión al pool
       }
   }
+
+  async obtener_habito_por_id(p_id){
+    let sql = 'SELECT * FROM HABITO WHERE HABITO_ID = ?';
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        let results = await connection.query(sql, [p_id]);
+        
+        if (results.length > 0) {
+            return results[0][0];  // Retornar el primer resultado (el hábito encontrado)
+        } else {
+            console.log(`No se encontró ningún hábito con el ID: ${p_id}`);
+            return null;  // Retornar null si no se encuentra el hábito
+        }
+    } catch (err) {
+        console.log('Error al buscar el hábito: ' + err.stack);
+        throw err;  // Lanza el error para que pueda ser manejado en otro lugar si es necesario
+    } finally {
+        if (connection) connection.release();
+    }
+  }
+
+
+
 }
 
 class Regla {
@@ -391,7 +415,17 @@ class HistorialProductividad {
             if (connection) connection.release(); // Liberar la conexión al pool
         }
     }
-        
+}
+
+class Modelo {
+
+    constructor() {
+        this.habito = new Habito();
+        this.regla = new Regla();
+        this.objetivo = new Objetivo();
+        this.regact = new RegistroActividad();
+        this.histprod = new HistorialProductividad();
+    }
 }
 
 let habito_1 = new Habito();
@@ -410,3 +444,4 @@ let p_habitos_seleccionados = [10, 9];
 //histprod_1.crear_historial(1, "2024-06-15", 'S')
 //histprod_1.crear_historial(2, "2024-08-15", 'N')
 //histprod_1.visualizar_historial(1, "2024-06-10", "2024-08-15")
+

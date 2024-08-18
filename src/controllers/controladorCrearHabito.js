@@ -1,5 +1,34 @@
-const CrearHabito = require('../models/Metodos');
+const Modelo = require('../models/modelo');
+const vistaCrearHabito = require('../views/vistaCrearHabito');
 
-exports.obtenerCrearHabitos = (req, res) => {
-  res.render('vistaCrearHabito', { titulo: 'Creador de Hábito' });
-};
+class ControladorCrearHabito {
+    constructor() { }
+
+    obtenerCrearHabito(req, res) {
+        vistaCrearHabito.render(res);
+    }
+
+    async solicitarCrearHabito(req, res) {
+        const { habitName, habitType, cantidad, tipolim } = req.body;
+
+        let parametro = null;
+
+        if (habitType === 'quantitative') {
+            parametro = {
+                cantidad: cantidad || null,
+                tipolim: tipolim || null
+            };
+        }
+
+        try {
+            await Modelo.habito.crear_habito(habitName, habitType === 'quantitative' ? 1 : 2, parametro);
+            res.json({ success: true });
+        } catch (err) {
+            res.json({ success: false, error: err.message });
+        }
+    }
+}
+
+module.exports = new ControladorCrearHabito();
+
+

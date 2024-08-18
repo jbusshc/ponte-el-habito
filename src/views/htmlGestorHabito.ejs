@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/css/gestorHabitosStyle.css">
+</head>
+<body>  
+    <%- include('partial/_header') %>  <!-- Incluir el header -->
+    
+    <main>
+        <h2>Gestor de Hábitos</h2>
+        
+        <!-- Botones para Registrar, Modificar y Eliminar Hábitos -->
+        <div class="button-container">
+            <button class="btn-registrar" onclick="window.location.href='/crear-habitos'">Crear Hábito</button>
+            <button class="btn-modificar" onclick="window.location.href='/modificar-habito'">Modificar Hábito</button>
+            <button class="btn-eliminar" onclick="window.location.href='/eliminar-habito'">Eliminar Hábito</button>
+        </div>
+
+    
+    </main>
+
+</body>
+</html>

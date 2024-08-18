@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/css/crearReglasStyle.css">
+    
+    <!-- Incluir CSS de Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <%- include('partial/_header') %>  <!-- Incluir el header -->
+
+    <main>
+        <h2>Crear una nueva regla</h2>
+
+        <!-- Formulario para crear una regla -->
+        <form id="register-rule-form">
+            <label for="rule-name">Nombre de la regla:</label>
+            <input type="text" id="rule-name" name="ruleName" required placeholder="Nombre de la regla">
+
+            <label for="rule-type">Tipo de regla:</label>
+            <select id="rule-type" name="ruleType" required>
+                <option value="" disabled selected>Seleccione un tipo de regla</option>
+                <option value="OB">Obligatoria</option>
+                <option value="OP">Opcional</option>
+            </select>
+
+            <label for="habit-list">Seleccionar hábitos:</label>
+            <select id="habit-list" name="habitList[]" multiple="multiple" required>
+                <!-- Aquí irán las opciones de hábitos -->
+                <% habitos.forEach(habito => { %>
+                    <option value="<%= habito.HABITO_ID %>"><%= habito.HABITO_NOM %></option>
+                <% }) %>
+            </select>
+
+            <button type="submit" class="btn-confirm">Aceptar</button>
+            <button type="button" class="btn-back" onclick="window.location.href='/gestor-regla';">Volver</button>
+        </form>
+
+    </main>
+
+    // <!-- Incluir el footer -->
+
+    <!-- Incluir el archivo JavaScript -->
+    <script src="/js/crearReglas.js"></script>
+
+    <!-- Incluir jQuery y Select2 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#habit-list').select2({
+                tags: true,
+                placeholder: "Selecciona uno o más hábitos",
+                allowClear: true
+            });
+        });
+    </script>
+</body>
+</html>

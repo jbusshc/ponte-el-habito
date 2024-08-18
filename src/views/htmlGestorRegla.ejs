@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/css/gestorReglasStyle.css">
+</head>
+<body>  
+    <%- include('partial/_header') %>  <!-- Incluir el header -->
+    
+    <main>
+        <h2>Gestor de Reglas de productividad</h2>
+        
+        <!-- Botones para Registrar, Modificar y Eliminar Reglas -->
+        <div class="button-container">
+            <button class="btn-registrar" onclick="window.location.href='/crear-regla'">Crear Regla</button>
+            <button class="btn-modificar" onclick="window.location.href='/modificar-regla'">Modificar Regla</button>
+            <button class="btn-eliminar" onclick="window.location.href='/eliminar-regla'">Eliminar Regla</button>
+        </div>
+
+    </main>
+
+</body>
+</html>
