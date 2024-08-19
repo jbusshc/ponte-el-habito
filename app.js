@@ -30,6 +30,9 @@ const crearObjetivoRoutes = require('./src/routes/crearObjetivo');
 const modificarObjetivoRoutes = require('./src/routes/modificarObjetivo');
 const eliminarObjetivoRoutes = require('./src/routes/eliminarObjetivo');
 
+const historialHabitoRoutes = require('./src/routes/historialHabito');
+
+
 app.use('/', paginaInicioRoutes);
 app.use('/', gestorHabitoRoutes);
 app.use('/', crearHabitoRoutes);
@@ -45,6 +48,8 @@ app.use('/', gestorObjetivoRoutes);
 app.use('/', crearObjetivoRoutes);
 app.use('/', modificarObjetivoRoutes);
 app.use('/', eliminarObjetivoRoutes);
+
+app.use('/', historialHabitoRoutes);
 
 // Iniciar el servidor en el puerto 3000
 const PORT = process.env.PORT || 3000;

@@ -2,8 +2,9 @@ class VistaHistorialHabitos {
     constructor() {}
 
     render(res, habitos) {
-        res.render('htmlHistorialHabitos', { 
-            titulo: 'Historial Habitos'
+        res.render('htmlHistorialHabito', { 
+            titulo: 'Historial Habito',
+            habitos: habitos
         });
     }
 

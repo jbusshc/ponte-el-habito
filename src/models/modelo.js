@@ -3,7 +3,7 @@ const pool = require('../../db'); // Importar el pool de conexiones
 class Habito {
 
     constructor() {}
-
+    
     async crear_habito(p_nom, p_tipo, p_parametro) {
         let connection;
         try { 
@@ -366,6 +366,23 @@ class RegistroActividad {
             if (connection) connection.release(); // Liberar la conexión al pool
         }
     }       
+
+    async obtener_actividad_por_id(p_idh) {
+        let sql = 'SELECT * FROM REGACTIVIDAD WHERE REGACTIVIDAD_IDH = ?';
+        let connection;
+        try {
+            connection = await pool.getConnection();
+            let results = await connection.query(sql, [p_idh]);
+            console.log('Actividad obtenida con ID: ' + p_idh);
+            return results[0];
+        } catch (err) {
+            console.error('Error al obtener la actividad: ' + err.stack);
+            return [];
+        } finally {
+            if (connection) connection.release(); // Liberar la conexión al pool
+        }
+    }
+
 }
 
 class HistorialProductividad {

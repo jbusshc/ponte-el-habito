@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/css/historialHabitosStyle.css">
+</head>
+<body>
+    <%- include('partial/_header') %> <!-- Incluir el header -->
+
+    <main id="contenido">
+        <h1>Historial de Hábitos</h1>
+        
+        <!-- Listbox para seleccionar un hábito -->
+        <label for="habit-listbox">Seleccione un hábito a visualizar:</label>
+        <select id="habit-listbox">
+            <option value="" disabled selected>Seleccione un hábito</option>
+            <% habitos.forEach(habito => { %>
+                <option value="<%= habito.HABITO_ID %>">
+                    <%= habito.HABITO_NOM %>
+                </option>
+            <% }) %>
+        </select>
+
+        <!-- Área para mostrar la tabla de actividades -->
+        <div id="activity-table-container"></div>
+    </main>
+
+    <!-- Incluir el archivo JavaScript -->
+    <script src="/js/historialHabito.js"></script>
+</body>
+</html>
