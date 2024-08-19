@@ -67,8 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(data)
         })
         .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Hábito modificado con éxito');
+                window.location.href = '/gestor-habitos'; // Redirigir al gestor de hábitos
+            } else {
+                alert('Hubo un problema al modificar el hábito: ' + data.error);
+            }
+        })
         .catch(error => console.error('Error:', error))
-        .then((response) => console.log("Success: ", response));
     });
 
     // Botón para volver atrás

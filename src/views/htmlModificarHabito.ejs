@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= titulo %></title>
-    <link rel="stylesheet" href="/css/modificarHabitos.css">
+    <link rel="stylesheet" href="/css/modificarHabitosStyle.css">
 </head>
 <body>
     <%- include('partial/_header') %>  <!-- Incluir el header -->
@@ -13,44 +13,39 @@
         <h1>Modificar Hábito</h1>
 
         <!-- Listbox para seleccionar los hábitos -->
-        <label for="rule-listbox">Seleccione una regla para modificar:</label>
-        <select id="rule-listbox">
-            <option value="" disabled selected>Seleccione una regla</option>
-            <% reglas.forEach(regla => { %>
-                <option value="<%= regla.ID %>"><%= regla.NOMBRE %></option>
+        <label for="habit-listbox">Seleccione un hábito para modificar:</label>
+        <select id="habit-listbox">
+            <option value="" disabled selected>Seleccione un hábito</option>
+            <% habitos.forEach(habito => { %>
+                <option value="<%= habito.HABITO_ID %>,<%= habito.HABITO_IDT %>">
+                    <%= habito.HABITO_NOM %>
+                </option>
             <% }) %>
         </select>
 
         <!-- Elementos que se habilitarán dinámicamente -->
-        <div id="dynamic-elements" style="display: none;">
-            <input type="text" id="nuevo-nombre" placeholder="Nuevo nombre de la regla">
-            <select id="tipo-regla">
-                <option value="" disabled selected>Seleccione el tipo de regla</option>
-                <option value="tipo1">Tipo 1</option>
-                <option value="tipo2">Tipo 2</option>
-                <!-- Más opciones según sea necesario -->
+        <div id="dynamic-elements">
+            <input type="text" id="nuevo-nombre" style="display: none;" placeholder="Nuevo nombre del hábito">
+            <input type="text" id="cantidad" style="display: none;" placeholder="Nueva cantidad de repeticiones del hábito">
+            
+            <select id="tipolim" style="display: none;">
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option value="<="><=</option>
+                <option value="<"><</option>
+                <option value=">=">>=</option>
+                <option value=">">></option>
+                <option value="=">=</option>
             </select>
-            <select id="estado-regla">
-                <option value="" disabled selected>Seleccione el estado de la regla</option>
-                <option value="activo">Activo</option>
-                <option value="inactivo">Inactivo</option>
-                <!-- Más opciones según sea necesario -->
-            </select>
-            <div id="habit-list">
-                <% habitos.forEach(habito => { %>
-                    <label>
-                        <input type="checkbox" name="habitList[]" value="<%= habito.HABITO_ID %>"> <%= habito.HABITO_NOM %>
-                    </label>
-                <% }) %>
-            </div>
         </div>
 
-        <!-- Botones que siempre estarán visibles -->
+        <!-- Botones que siempre estarán visibles, alineados de la misma forma que en Registrar Hábito -->
         <div id="action-buttons" class="button-group">
             <button id="accept-button" class="btn-confirm">Aceptar</button>
             <button id="btn-back" type="button" class="btn-back">Volver</button>
         </div>
     </main>
+
+    <%- include('partial/_footer') %>  <!-- Incluir el footer -->
 
     <!-- Incluir el archivo JavaScript -->
     <script src="/js/modificarHabitos.js"></script>
