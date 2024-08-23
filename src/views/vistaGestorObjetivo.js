@@ -1,10 +1,11 @@
 class VistaGestorObjetivo {
     constructor() {}
 
-    // Método para renderizar la vista de creación de objetivos
-    render(res) {
+    // Método para renderizar la vista del Gestor de objetivos
+    render(res, objetivos) {
         res.render('htmlGestorObjetivo', { 
-            titulo: 'Gestor de Objetivos'
+            titulo: 'Gestor de Objetivos',
+            objetivos: objetivos,
         });
     }
 

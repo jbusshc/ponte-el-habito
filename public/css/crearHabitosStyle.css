@@ -73,3 +73,20 @@ button {
 .btn-back:hover {
   background-color: #bbb;
 }
+
+select, input[type="date"], input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+select:focus, input[type="date"]:focus, input[type="number"]:focus {
+  border-color: #4CAF50;
+  outline: none;
+  background-color: #fff;
+}

@@ -18,8 +18,14 @@ class ControladorHistorialHabito {
 
         try {
             const actividades = await Modelo.regact.obtener_actividad_por_id(habitId);
-
-            res.json({ actividades: actividades });  // Responder con JSON
+            
+            if (actividades.length > 0) {
+                
+                res.json({ actividades: actividades });  // Enviar actividades como JSON
+                
+            } else {
+                res.json({ actividades: [] });  // Si no hay actividades, enviar una matriz vacía
+            }
         } catch (err) {
             console.error('Error al obtener la actividad:', err);
             res.status(500).json({ error: 'Error obteniendo la actividad' });

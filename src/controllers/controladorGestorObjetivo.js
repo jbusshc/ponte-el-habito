@@ -5,7 +5,13 @@ class ControladorGestorObjetivo {
     constructor() {}
 
     obtenerGestorObjetivo(req, res) {
-        vistaGestorObjetivo.render(res);
+        Modelo.objetivo.obtener_lista_objetivos() 
+            .then(resultados => {
+                vistaGestorObjetivo.render(res, resultados);
+            })
+            .catch(err => {
+                vistaGestorObjetivo.render(res, 'Error obteniendo los objetivos');
+            });
     }
 }
 module.exports = new ControladorGestorObjetivo();

@@ -31,6 +31,12 @@ const modificarObjetivoRoutes = require('./src/routes/modificarObjetivo');
 const eliminarObjetivoRoutes = require('./src/routes/eliminarObjetivo');
 
 const historialHabitoRoutes = require('./src/routes/historialHabito');
+const historialProductividadRoutes = require('./src/routes/historialProductividad');
+
+const registrarActividadRoutes = require('./src/routes/registrarActividad');  // Añade esta línea
+
+const exportarImportarRoutes = require('./src/routes/exportarImportar');
+
 
 
 app.use('/', paginaInicioRoutes);
@@ -50,6 +56,15 @@ app.use('/', modificarObjetivoRoutes);
 app.use('/', eliminarObjetivoRoutes);
 
 app.use('/', historialHabitoRoutes);
+app.use('/', historialProductividadRoutes);
+
+app.use('/', registrarActividadRoutes);  
+
+app.use('/', exportarImportarRoutes);
+
+app.use((req, res, next) => {
+    res.status(404).render('404', { titulo: 'Página No Encontrada' });
+});
 
 // Iniciar el servidor en el puerto 3000
 const PORT = process.env.PORT || 3000;

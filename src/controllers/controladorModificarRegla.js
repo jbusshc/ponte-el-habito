@@ -61,6 +61,17 @@ class ControladorModificarRegla {
             res.json({ success: false, error: err.message });
         }
     }
+    obtenerDetallesRegla(req, res) {
+        const reglaId = req.params.id;
+
+        Modelo.regla.obtener_regla_por_id(reglaId)
+            .then(regla => {
+                res.json(regla);
+            })
+            .catch(err => {
+                res.status(500).send('Error obteniendo la regla');
+            });
+    }
 }
 
 module.exports = new ControladorModificarRegla();

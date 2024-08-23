@@ -5,7 +5,13 @@ class ControladorGestorHabito {
     constructor() {}
 
     obtenerGestorHabito(req, res) {
-        vistaGestorHabito.render(res);
+        Modelo.habito.obtener_lista_habitos()
+            .then(resultados => {
+                vistaGestorHabito.render(res, resultados);
+            })
+            .catch(err => {
+                vistaGestorHabito.render(res, 'Error obteniendo habitos');
+            });
     }
 }
 module.exports = new ControladorGestorHabito();

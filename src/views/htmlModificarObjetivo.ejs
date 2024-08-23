@@ -25,33 +25,39 @@
                 <% }) %>
             </select>
 
-                <label for="nuevo-nombre">Nombre del objetivo:</label>
-                <input type="text" id="nuevo-nombre" name="ruleName" style="display: block;" placeholder="Nombre del objetivo...">
+            <label for="nuevo-nombre">Nombre del objetivo:</label>
+            <input type="text" id="nuevo-nombre" name="ruleName" placeholder="Nombre del objetivo...">
 
-                <input type="text" id="repeticiones" name="cantidad" style="display: block;" placeholder="Cantidad de repeticiones" required>
-            
-                <label for="fecha-inicial">Fecha Inicio:</label>
-                <input type="date" id="fecha-inicial" name="fechaInicial" required>
-                    <br><br>
-                <label for="fecha-final">Fecha Final:</label>
-                <input type="date" id="fecha-final" name="fechaFinal" required>
-                <br><br>
+            <input type="number" id="repeticiones" name="cantidad" placeholder="Cantidad de repeticiones" required>
 
-                <label for="habit-list">Seleccionar hábito:</label>
-                <select id="habit-list" name="habitList[]" required>
-                    <!-- Aquí irán las opciones de hábitos -->
+            <!-- Contenedor para las fechas -->
+            <div class="date-container">
+                <div class="form-group">
+                    <label for="fecha-inicial">Fecha Inicio:</label>
+                    <input type="date" id="fecha-inicial" name="fechaInicial" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha-final">Fecha Final:</label>
+                    <input type="date" id="fecha-final" name="fechaFinal" required>
+                </div>
+            </div>
+
+            <label for="habit-list">Seleccionar hábito:</label>
+            <select id="habit-list" name="habitList[]" required>
                 <% habitos.forEach(habito => { %>
                     <option value="<%= habito.HABITO_ID %>"><%= habito.HABITO_NOM %></option>
                 <% }) %>
-                </select>
+            </select>
 
-            <button type="submit" class="btn-confirm">Aceptar</button>
-            <button type="button" class="btn-back" onclick="window.location.href='/gestor-habitos';">Volver</button>
+            <div class="button-group">
+                <button type="submit" class="btn-confirm">Aceptar</button>
+                <button type="button" class="btn-back" onclick="window.location.href='/gestor-objetivo';">Volver</button>
+            </div>
         </form>
     </main>
 
-
-    <script src="/js/modificarReglas.js"></script>
+    <script src="/js/modificarObjetivo.js"></script>
     <!-- Incluir jQuery y Select2 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>

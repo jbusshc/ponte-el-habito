@@ -21,20 +21,21 @@ class ControladorModificarHabito {
 
         try {
             // Obtener el hábito actual para verificar sus valores
-            const habitoActual = await Modelo.habito.obtener_habito_por_id(id);
+            const habitoActual = await Modelo.habito.obtener_habito_por_id(id, tipo);
 
             // Si algún campo es nulo, se conserva el valor actual
 
+            console.log(habitoActual)
+
             const nombreFinal = nombre || habitoActual.HABITO_NOM;
-            const tipoFinal = tipo;
-            const parametroFinal = tipoFinal == 1 ? {
+            const parametroFinal = tipo == 1 ? {
                 tipolim: tipolim || habitoActual.HABITOCUA_TIPOLIM,
                 cantidad: cantidad || habitoActual.HABITOCUA_CANTIDAD
             } : null;
 
             
             // Proceder a modificar el hábito con los valores finales
-            await Modelo.habito.modificar_habito(id, nombreFinal, tipoFinal, parametroFinal);
+            await Modelo.habito.modificar_habito(id, nombreFinal, tipo, parametroFinal);
             res.json({ success: true });
         } catch (err) {
             console.error('Error al modificar el hábito:', err);
@@ -45,12 +46,16 @@ class ControladorModificarHabito {
 
     obtenerDetallesHabito(req, res) {
         const habitId = req.params.id;
-        Modelo.habito.obtener_habito_por_id(habitId, (err, habito) => {
-            if (err) {
-                return res.status(500).send('Error obteniendo el hábito');
-            }
-            res.json(habito);
-        });
+        const tipo = req.query.tipo;
+
+        console.log(habitId, tipo);
+        Modelo.habito.obtener_habito_por_id(habitId, tipo)
+            .then(habito => {
+                res.json(habito);
+            })
+            .catch(err => {
+                res.status(500).send('Error obteniendo el hábito');
+            });
     }
 }
 

@@ -55,6 +55,44 @@ body {
 }
 
 h2 {
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: 'Arial', sans-serif;
   padding-left: 30px;
+}
+
+table {
+  width: 90%; 
+  border-collapse: collapse;
+  margin: 20px auto;
+  font-size: 16px;
+  text-align: left;
+}
+
+table th, table td {
+  padding: 10px 8px;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #66b469;
+  color: white;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    font-size: 14px;
+  }
+  
+  table th, table td {
+    padding: 8px 5px;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 }

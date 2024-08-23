@@ -44,54 +44,74 @@ class Habito {
         }
     }
 
-  async eliminar_habito(p_id, p_tipo) {
-      let sql;
-      let connection;
-      try {
+    async eliminar_habito(p_id, p_tipo) {
+        let sql;
+        let connection;
+        try {
             connection = await pool.getConnection();
-          if (p_tipo == 1){
-              sql = 'DELETE FROM HABITOCUA WHERE HABITOCUA_IDH = ?';
-              let cuaResults = await connection.query(sql, [p_id]);
-              console.log('Hábito cuantativo eliminado con ID: ' + p_id);
-          }
+            if (p_tipo == 1){
+                sql = 'DELETE FROM HABITOCUA WHERE HABITOCUA_IDH = ?';
+                let cuaResults = await connection.query(sql, [p_id]);
+                console.log('Hábito cuantativo eliminado con ID: ' + p_id);
+            }
 
-          sql = 'DELETE FROM REGACTIVIDAD WHERE REGACTIVIDAD_IDH = ?';
-          let results = await connection.query(sql, [p_id]);
-          console.log('Registros de actividad elimnados');
+            sql = 'DELETE FROM REGACTIVIDAD WHERE REGACTIVIDAD_IDH = ?';
+            let results = await connection.query(sql, [p_id]);
+            console.log('Registros de actividad elimnados');
 
-          sql = 'DELETE FROM HABITO WHERE HABITO_ID = ?';
-          results = await connection.query(sql, [p_id]);
-          console.log('Hábito eliminado con ID: ' + p_id);
-      } catch (err) {
-          console.error('Error al eliminar el hábito: ' + err.stack);
-      }finally {
-        if (connection) connection.release(); // Liberar la conexión al pool
-      }
-  }
+            sql = 'DELETE FROM REGLAHABITO WHERE REGLAHABITO_IDH = ?';
+            results = await connection.query(sql, [p_id]);
+            console.log('Hábito eliminado de reglas')
+            
+            sql = 'DELETE FROM OBJETIVO WHERE OBJETIVO_IDH = ?'
+            results = await connection.query(sql, [p_id]);
+            console.log('Nexo con objetivos elimnados');
+            //---------------------------------------------------------------------------
 
-  async obtener_lista_habitos() {
-      let sql = 'SELECT * FROM HABITO';
-      let connection;
-      try {
+            sql = 'DELETE FROM HABITO WHERE HABITO_ID = ?';
+            results = await connection.query(sql, [p_id]);
+            console.log('Hábito eliminado con ID: ' + p_id);
+
+        } catch (err) {
+            console.error('Error al eliminar el hábito: ' + err.stack);
+        }finally {
+            if (connection) connection.release(); // Liberar la conexión al pool
+        }
+    }
+
+    async obtener_lista_habitos() {
+        let sql = 'SELECT HABITO.HABITO_ID, HABITO.HABITO_NOM, HABITO.HABITO_IDT, CASE WHEN HABITO.HABITO_IDT = 2 THEN "No aplica" ELSE HABITOCUA.HABITOCUA_CANTIDAD END AS HABITOCUA_CANTIDAD, CASE WHEN HABITO.HABITO_IDT = 2 THEN "No aplica" ELSE HABITOCUA.HABITOCUA_TIPOLIM END AS HABITOCUA_TIPOLIM FROM HABITO LEFT JOIN HABITOCUA  ON HABITO.HABITO_ID = HABITOCUA.HABITOCUA_IDH;';
+        let connection;
+        try {
             connection = await pool.getConnection();
-          let results = await connection.query(sql);
-          //console.log('Lista de hábitos: ' + results);
-          return results;
-      } catch (err) {
-          console.error('Error al obtener la lista de hábitos: ' + err.stack);
-          return [];
-      }finally {
-        if (connection) connection.release(); // Liberar la conexión al pool
-      }
-  }
 
-  async obtener_habito_por_id(p_id){
-    let sql = 'SELECT * FROM HABITO WHERE HABITO_ID = ?';
-    //p_id = p_id.substring(1);
-    let connection;
-    try {
-        connection = await pool.getConnection();
-        let results = await connection.query(sql, [p_id]);
+            let results = await connection.query(sql);
+            //console.log('Lista de hábitos: ' + results);
+            return results;
+        } catch (err) {
+            console.error('Error al obtener la lista de hábitos: ' + err.stack);
+            return [];
+        }finally {
+            if (connection) connection.release(); // Liberar la conexión al pool
+        }
+    }
+
+    async obtener_habito_por_id(p_id, p_tipo){
+        let sql = 'SELECT * FROM HABITO WHERE HABITO_ID = ?';
+        //p_id = p_id.substring(1);
+        let connection;
+        try {
+            connection = await pool.getConnection();
+            let results = await connection.query(sql, [p_id]);
+
+            if(p_tipo == 1){
+                sql = 'SELECT HABITOCUA_TIPOLIM, HABITOCUA_CANTIDAD FROM HABITOCUA WHERE HABITOCUA_IDH = ?';
+            let cuaResults = await connection.query(sql, [p_id]);
+            if (cuaResults.length > 0) {
+                results[0].HABITOCUA_TIPOLIM = cuaResults[0].HABITOCUA_TIPOLIM;
+                results[0].HABITOCUA_CANTIDAD = cuaResults[0].HABITOCUA_CANTIDAD;
+            }
+        }
         
         if (results.length > 0) {
             return results[0];  // Retornar el primer resultado (el hábito encontrado)
@@ -99,13 +119,13 @@ class Habito {
             console.log(`No se encontró ningún hábito con el ID: ${p_id}`);
             return null;  // Retornar null si no se encuentra el hábito
         }
-    } catch (err) {
-        console.log('Error al buscar el hábito: ' + err.stack);
-        throw err;  // Lanza el error para que pueda ser manejado en otro lugar si es necesario
-    } finally {
-        if (connection) connection.release();
+        } catch (err) {
+            console.log('Error al buscar el hábito: ' + err.stack);
+            throw err;  // Lanza el error para que pueda ser manejado en otro lugar si es necesario
+        } finally {
+            if (connection) connection.release();
+        }
     }
-  }
 
 }
 
@@ -168,6 +188,10 @@ class Regla {
             let sql = 'DELETE FROM REGLAHABITO WHERE REGLAHABITO_IDR = ?';
             let deleteResults = await connection.query(sql, [p_id]);
             console.log('Relaciones regla-hábito eliminadas: ' + deleteResults);
+
+            sql = 'DELETE FROM HISTORIALPROD WHERE HISTORIALPROD_IDR = ?';
+            deleteResults = await connection.query(sql, [p_id]);
+            console.log('Relaciones en historial de productividad eliminadas: ' + deleteResults);
       
             sql = 'DELETE FROM REGLA WHERE REGLA_ID = ?';
             let results = await connection.query(sql, [p_id]);
@@ -248,12 +272,12 @@ class Objetivo {
         }
     }
 
-    async modificar_objetivo(p_id, p_idh, p_fechaini, p_fechafin, p_repeticiones) {
-        let sql = 'UPDATE OBJETIVO SET OBJETIVO_IDH = ?, OBJETIVO_FECHAINI = ?, OBJETIVO_FECHAFIN = ?, OBJETIVO_REPETICIONES = ? WHERE OBJETIVO_ID = ?';
+    async modificar_objetivo(p_id, p_nom,p_idh, p_fechaini, p_fechafin, p_repeticiones) {
+        let sql = 'UPDATE OBJETIVO SET OBJETIVO_NOM = ?, OBJETIVO_IDH = ?, OBJETIVO_FECHAINI = ?, OBJETIVO_FECHAFIN = ?, OBJETIVO_REPETICIONES = ? WHERE OBJETIVO_ID = ?';
         let connection;
         try {
             connection = await pool.getConnection();
-            let results = await connection.query(sql, [p_idh, p_fechaini, p_fechafin, p_repeticiones, p_id]);
+            let results = await connection.query(sql, [p_nom, p_idh, p_fechaini, p_fechafin, p_repeticiones, p_id]);
             console.log('Objetivo modificado con ID: ' + p_id);
         } catch (err) {
             console.error('Error al modificar el objetivo: ' + err.stack);
@@ -276,7 +300,9 @@ class Objetivo {
         }
     }
     async obtener_lista_objetivos() {
-        let sql = 'SELECT * FROM OBJETIVO';
+
+        let sql = 'SELECT OBJETIVO_ID, OBJETIVO_NOM, HABITO_NOM, OBJETIVO_IDH, OBJETIVO_FECHAINI, OBJETIVO_FECHAFIN, OBJETIVO_REPETICIONES FROM OBJETIVO, HABITO WHERE OBJETIVO_IDH = HABITO_ID';
+
         let connection;
         try {
             connection = await pool.getConnection();
@@ -290,6 +316,27 @@ class Objetivo {
             if (connection) connection.release(); // Liberar la conexión al pool
         }
     }
+
+    async obtener_objetivo_por_id(p_id) {
+        let sql = 'SELECT * FROM OBJETIVO WHERE OBJETIVO_ID = ?';
+        let connection;
+        try {
+            connection = await pool.getConnection();
+            let results = await connection.query(sql, [p_id]);
+            if (results.length > 0) {
+                return results[0]; // Devuelve el primer resultado (el objetivo encontrado)
+            } else {
+                throw new Error('Objetivo no encontrado');
+            }
+        } catch (err) {
+            console.error('Error al obtener el objetivo:', err);
+            throw err;
+        } finally {
+            if (connection) connection.release(); // Liberar la conexión al pool
+        }
+    }
+
+    
 }
 
 class RegistroActividad {
@@ -309,6 +356,7 @@ class RegistroActividad {
             if (connection) connection.release(); // Liberar la conexión al pool
         }
     }
+
     async modificar_actividad(p_id, p_cantidad) {
         let connection;
         try {
@@ -323,6 +371,7 @@ class RegistroActividad {
             if (connection) connection.release(); // Liberar la conexión al pool
         }
     }
+    
     async obtener_id_actividad(p_fecha, p_idh) {
         let sql = 'SELECT REGACTIVIDAD_ID FROM REGACTIVIDAD WHERE REGACTIVIDAD_FECHA = ? AND REGACTIVIDAD_IDH = ?';
         let connection;
@@ -368,14 +417,15 @@ class RegistroActividad {
     }       
 
     async obtener_actividad_por_id(p_idh) {
-        let sql = 'SELECT * FROM REGACTIVIDAD WHERE REGACTIVIDAD_IDH = ?';
+        let sql = 'SELECT REGACTIVIDAD_ID, REGACTIVIDAD_FECHA, CASE WHEN HABITO.HABITO_IDT = 1 THEN CAST(REGACTIVIDAD_CANTIDAD AS CHAR) WHEN HABITO.HABITO_IDT = 2 THEN CASE WHEN REGACTIVIDAD_CANTIDAD = 1 THEN "Sí" WHEN REGACTIVIDAD_CANTIDAD = 0 THEN "No" END END AS REGACTIVIDAD_CANTIDAD, REGACTIVIDAD_IDH, HABITO_NOM, HABITO_IDT FROM REGACTIVIDAD JOIN HABITO ON REGACTIVIDAD.REGACTIVIDAD_IDH = HABITO.HABITO_ID WHERE REGACTIVIDAD_IDH = ?;';
         let connection;
         try {
             connection = await pool.getConnection();
             let results = await connection.query(sql, [p_idh]);
             console.log('Actividad obtenida con ID: ' + p_idh);
-            return results[0];
+            return results;
         } catch (err) {
+            // Si la lista esta vacia, tira error igual
             console.error('Error al obtener la actividad: ' + err.stack);
             return [];
         } finally {
@@ -464,6 +514,14 @@ class HistorialProductividad {
     }
 }
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toISOString().slice(0, 19).replace('T', ' ');
+}
+
+const fs = require('fs');
+const databaseName = 'ponteelhabito';
+
 class Modelo {
 
     constructor() {
@@ -473,35 +531,82 @@ class Modelo {
         this.regact = new RegistroActividad();
         this.histprod = new HistorialProductividad();
     }
+
+    async importar_datos() {
+        let connection;
+        try {
+            const jsonData = fs.readFileSync('base_de_datos.json', 'utf8');
+            const baseDeDatosCompleta = JSON.parse(jsonData);
     
+            connection = await pool.getConnection();
+            //console.log('Conectado a la base de datos de MariaDB para importar');
+    
+            await connection.query("SET FOREIGN_KEY_CHECKS=0");
+    
+            for (const tableName in baseDeDatosCompleta) {
+                const rows = baseDeDatosCompleta[tableName];
+                await connection.query(`TRUNCATE TABLE ${tableName}`);
+    
+                for (const row of rows) {
+                    const columns = Object.keys(row).join(', ');
+                    const values = Object.values(row).map(value => {
+                        if (typeof value === 'string' && !isNaN(Date.parse(value))) {
+                            // Convertir fechas en formato ISO al formato adecuado
+                            return `'${formatDate(value)}'`;
+                        }
+                        return `'${value}'`;
+                    }).join(', ');
+    
+                    const query = `INSERT INTO ${tableName} (${columns}) VALUES (${values})`;
+                    await connection.query(query);
+                }
+            }
+    
+            await connection.query("SET FOREIGN_KEY_CHECKS=1");
+            console.log('Base de datos importada exitosamente desde base_de_datos.json');
+    
+        } catch (error) {
+            console.error('Error al importar la base de datos:', error);
+        } finally {
+            if (connection) {
+                connection.release();
+            }
+        }
+    }
+
+    async exportar_datos() {
+        let connection;
+        try {
+            connection = await pool.getConnection();
+            //console.log('Conectado a la base de datos de MariaDB');
+            const tables = await connection.query("SHOW TABLES");
+            console.log('Tablas encontradas:', tables); // Imprime las tablas encontradas
+            
+            let baseDeDatosCompleta = {};
+        
+            for (const tableObj of tables) {
+                const tableName = tableObj[`Tables_in_${databaseName}`];
+                //console.log('Exportando tabla:', tableName); // Imprime el nombre de la tabla
+                
+                const rows = await connection.query(`SELECT * FROM ${tableName}`);
+                //console.log(`Datos de la tabla ${tableName}:`, rows); // Imprime los datos de la tabla
+                
+                baseDeDatosCompleta[tableName] = rows;
+            }
+        
+            const jsonData = JSON.stringify(baseDeDatosCompleta, null, 2);
+            fs.writeFileSync('base_de_datos.json', jsonData);
+            console.log('Base de datos exportada exitosamente a base_de_datos.json');
+        
+        } catch (error) {
+            console.error('Error al exportar la base de datos:', error);
+        } finally {
+            if (connection) {
+                connection.release();
+            }
+        }
+    }
 }
 
 module.exports = new Modelo()
-
-
-let modelopeh = new Modelo();
-
-let p_parametro = {
-    tipolim: "=",
-    cantidad: 60
-};
-
-//modelopeh.habito.crear_habito('Test', 1, p_parametro)
-
-let habito_1 = new Habito();
-let regla_1 = new Regla();
-let objetivo_1 = new Objetivo();
-let regact_1 = new RegistroActividad();
-let histprod_1 = new HistorialProductividad();
-
-p_parametro = {
-  tipolim: "<=",
-  cantidad: 60
-};
-
-let p_habitos_seleccionados = [10, 9];
-
-//histprod_1.crear_historial(1, "2024-06-15", 'S')
-//histprod_1.crear_historial(2, "2024-08-15", 'N')
-//histprod_1.visualizar_historial(1, "2024-06-10", "2024-08-15")
 

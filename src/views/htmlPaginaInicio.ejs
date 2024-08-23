@@ -11,14 +11,15 @@
     
     <main>
         <h2>¿Qué hábito cumpliremos hoy?</h2>
-
+        
         <!-- Tabla para mostrar los hábitos -->
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nombre del Hábito</th>
                     <th>Tipo de Hábito</th>
+                    <th>Cantidad de repeticiones</th>
+                    <th>Relación</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,16 +33,14 @@
                         }
                     %>
                     <tr>
-                        <td><%= habito.HABITO_ID %></td>
                         <td><%= habito.HABITO_NOM %></td>
                         <td><%= tipo_habito %></td>
+                        <td><%= habito.HABITOCUA_CANTIDAD %></td>
+                        <td><%= habito.HABITOCUA_TIPOLIM %></td>
                     </tr>
                 <% }) %>
             </tbody>
         </table>
     </main>
-    
 </body>
-
-
 </html>

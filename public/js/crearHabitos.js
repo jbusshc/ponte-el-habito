@@ -20,6 +20,22 @@ document.getElementById('register-habit-form').addEventListener('submit', functi
     const cantidad = document.getElementById('textbox1').value;
     const tipolim = document.getElementById('listbox').value;
 
+    const errorMessageElement = document.getElementById('error-message');
+    
+    // Limpiar mensaje de error previo
+    if (errorMessageElement) {
+        errorMessageElement.textContent = '';
+    }
+
+    // Validar cantidad
+    if (habitType === 'quantitative' && (cantidad < 0 || isNaN(cantidad))) {
+        // Mostrar mensaje de error
+        if (errorMessageElement) {
+            errorMessageElement.textContent = 'La cantidad debe ser mayor o igual a 0.\n';
+        }
+        return; // Detener el envío del formulario
+    }
+
     const data = {
         habitName,
         habitType,

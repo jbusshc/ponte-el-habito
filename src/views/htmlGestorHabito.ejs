@@ -18,9 +18,35 @@
             <button class="btn-modificar" onclick="window.location.href='/modificar-habito'">Modificar Hábito</button>
             <button class="btn-eliminar" onclick="window.location.href='/eliminar-habito'">Eliminar Hábito</button>
         </div>
-
-    
+        <!-- Tabla para mostrar los hábitos -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre del Hábito</th>
+                    <th>Tipo de Hábito</th>
+                    <th>Cantidad de repeticiones</th>
+                    <th>Relación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% habitos.forEach(habito => { %>
+                    <%
+                        let tipo_habito = '';
+                        if (habito.HABITO_IDT == 1) {
+                            tipo_habito = 'Cuantitativo';
+                        } else {
+                            tipo_habito = 'Binario';
+                        }
+                    %>
+                    <tr>
+                        <td><%= habito.HABITO_NOM %></td>
+                        <td><%= tipo_habito %></td>
+                        <td><%= habito.HABITOCUA_CANTIDAD %></td>
+                        <td><%= habito.HABITOCUA_TIPOLIM %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
     </main>
-
 </body>
 </html>

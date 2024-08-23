@@ -8,4 +8,6 @@ router.get('/modificar-habito', controladorModificarHabito.obtenerModificarHabit
 // Ruta para actualizar un hábito
 router.post('/modificar-habito/:id/update', controladorModificarHabito.solicitarModificarHabito);
 
+router.get('/modificar-habito/:id/detalles', controladorModificarHabito.obtenerDetallesHabito);
+
 module.exports = router;

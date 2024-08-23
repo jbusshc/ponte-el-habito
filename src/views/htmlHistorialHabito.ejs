@@ -12,7 +12,6 @@
     <main id="contenido">
         <h1>Historial de Hábitos</h1>
         
-        <!-- Listbox para seleccionar un hábito -->
         <label for="habit-listbox">Seleccione un hábito a visualizar:</label>
         <select id="habit-listbox">
             <option value="" disabled selected>Seleccione un hábito</option>
@@ -22,10 +21,11 @@
                 </option>
             <% }) %>
         </select>
-
-        <!-- Área para mostrar la tabla de actividades -->
-        <div id="activity-table-container"></div>
+    
+        <!-- Contenedor para la tabla de actividades -->
+        <div id="activity-table-container" class="table-container"></div>
     </main>
+    
 
     <!-- Incluir el archivo JavaScript -->
     <script src="/js/historialHabito.js"></script>

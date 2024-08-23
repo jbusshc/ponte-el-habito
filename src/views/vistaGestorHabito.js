@@ -2,9 +2,10 @@ class VistaGestorHabito {
     constructor() {}
 
     // Método para renderizar la vista de creación de hábito
-    render(res) {
+    render(res, habitos) {
         res.render('htmlGestorHabito', { 
-            titulo: 'Gestor de Hábitos'
+            titulo: 'Gestor de Hábitos',
+            habitos: habitos,
         });
     }
 
@@ -16,5 +17,4 @@ class VistaGestorHabito {
         });
     }
 }
-
 module.exports = new VistaGestorHabito();

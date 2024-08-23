@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/css/exportarImportarStyle.css">
+</head>
+<body>  
+    <%- include('partial/_header') %>  <!-- Incluir el header -->
+    <main>
+        <h2>Exportar datos</h2>
+        <div class="btn-container">
+            <!-- Botón de Exportar -->
+            <form action="/exportar" method="post">
+                <button class="btn btn-export" type="submit">Exportar</button>
+            </form>
+        </div>
+        <!-- Formulario de Importación -->
+        <div id="import-form">
+            <h3>Importar datos</h3>
+            <form action="/importar" method="post" enctype="multipart/form-data">
+                <input type="file" name="fileInput" id="fileInput" accept=".json">
+                <button class="btn btn-import" type="submit">Importar</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

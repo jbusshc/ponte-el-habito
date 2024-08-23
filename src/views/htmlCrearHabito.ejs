@@ -23,12 +23,13 @@
                 <option value="binary">Binario</option>
                 <option value="quantitative">Cuantitativo</option>
             </select>
+            <div id="error-message" style="color: red;"></div>
 
             <!-- Elementos que se habilitarán dinámicamente -->
             <div id="dynamic-elements">
-                <input type="text" id="textbox1" name="cantidad" style="display: none;" placeholder="Cantidad de repeticiones">
+                <input type="number" id="textbox1" name="cantidad" style="display: none;" placeholder="Cantidad de repeticiones" required>
                 
-                <select id="listbox" name="tipolim" style="display: none;">
+                <select id="listbox" name="tipolim" style="display: none;" required>
                     <option value="" disabled selected>Seleccione una opción</option>
                     <option value="<="><=</option>
                     <option value="<"><</option>

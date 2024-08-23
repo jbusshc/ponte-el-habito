@@ -18,7 +18,39 @@
             <button class="btn-modificar" onclick="window.location.href='/modificar-objetivo'">Modificar Objetivo</button>
             <button class="btn-eliminar" onclick="window.location.href='/eliminar-objetivo'">Eliminar Objetivo</button>
         </div>
-
+        <!-- Tabla para mostrar los hábitos -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre objetivo</th>
+                    <th>Hábito asociado</th>
+                    <th>Fecha de inicio</th>
+                    <th>Fecha de fin</th>
+                    <th>Cantidad de Repeticiones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (Array.isArray(objetivos) && objetivos.length > 0) { %>
+                    <% objetivos.forEach(objetivo => { 
+                        const fechainiFormateada = new Date(objetivo.OBJETIVO_FECHAINI).toLocaleDateString('es-ES');
+                        const fechafinFormateada = new Date(objetivo.OBJETIVO_FECHAFIN).toLocaleDateString('es-ES');
+                    %>    
+                        <tr>
+                            <td><%= objetivo.OBJETIVO_NOM %></td> 
+                            <td><%= objetivo.HABITO_NOM %></td>
+                            <td><%= fechainiFormateada %></td>  
+                            <td><%= fechafinFormateada %></td>  
+                            <td><%= objetivo.OBJETIVO_REPETICIONES %></td>  
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5">No se encontraron objetivos</td>
+                    </tr>
+                <% } %>
+            </tbody>
+            
+        </table>
     </main>
 
 </body>

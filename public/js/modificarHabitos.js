@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cantidad = document.getElementById('cantidad');
     const tipolim = document.getElementById('tipolim');
     const acceptButton = document.getElementById('accept-button');
-    valor = '';
-    selectedHabitId = '';
-    tipo_habito = '';
-    
+    let valor = '';
+    let selectedHabitId = '';
+    let tipo_habito = '';
+
     // Cuando se selecciona un hábito del listbox
     habitListbox.addEventListener('change', function() {
         valor = this.value;
@@ -15,20 +15,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         nuevo_nombre.style.display = 'block';
 
-        if(tipo_habito == 1){
+        // Obtener detalles del hábito seleccionado
+        fetch(`/modificar-habito/${selectedHabitId}/detalles?tipo=${tipo_habito}`)
+            .then(response => response.json())
+            .then(habito => {
+                console.log('Datos del hábito:', habito);
 
-            cantidad.style.display = 'block';
-            tipolim.style.display = 'block';
-
-        }
-
-        if(tipo_habito == 2){
-
-            cantidad.style.display = 'none';
-            tipolim.style.display = 'none';
-
-        }
-
+                // Ajustar nombres de los campos según el formato recibido
+                nuevo_nombre.value = habito.HABITO_NOM || '';
+                if (tipo_habito == 1) {
+                    cantidad.style.display = 'block';
+                    tipolim.style.display = 'block';
+                    cantidad.value = habito.HABITOCUA_CANTIDAD || '';
+                    tipolim.value = habito.HABITOCUA_TIPOLIM || '';   
+                } else {
+                    cantidad.style.display = 'none';
+                    tipolim.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error:', error));
     });
 
     // Al presionar el botón Aceptar
@@ -40,8 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let data;
 
-        if(tipo_habito == 1){
+        if (tipo_habito == 1 && (cantidadValue < 0 || isNaN(cantidadValue))) {
+            // Mostrar mensaje de error
+            if (errorMessageElement) {
+                errorMessageElement.textContent = 'La cantidad debe ser mayor o igual a 0.\n';
+            }
+            return; // Detener el envío del formulario
+        }
 
+        if(tipo_habito == 1){
             data = {
                 id: selectedHabitId,
                 nombre: nombre,
@@ -49,9 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cantidad: cantidadValue,
                 tipolim: tipolimValue
             };
-            
-        }else{
-
+        } else {
             data = {
                 id: selectedHabitId,
                 nombre: nombre,
@@ -75,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Hubo un problema al modificar el hábito: ' + data.error);
             }
         })
-        .catch(error => console.error('Error:', error))
+        .catch(error => console.error('Error:', error));
     });
 
     // Botón para volver atrás

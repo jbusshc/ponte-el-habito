@@ -1,0 +1,100 @@
+{
+  "HABITO": [
+    {
+      "HABITO_ID": 14,
+      "HABITO_NOM": "test",
+      "HABITO_IDT": 2
+    },
+    {
+      "HABITO_ID": 15,
+      "HABITO_NOM": "Show",
+      "HABITO_IDT": 1
+    },
+    {
+      "HABITO_ID": 16,
+      "HABITO_NOM": "Show",
+      "HABITO_IDT": 1
+    },
+    {
+      "HABITO_ID": 17,
+      "HABITO_NOM": "Show2",
+      "HABITO_IDT": 1
+    },
+    {
+      "HABITO_ID": 20,
+      "HABITO_NOM": "acariciar a estefi2",
+      "HABITO_IDT": 2
+    },
+    {
+      "HABITO_ID": 23,
+      "HABITO_NOM": "test123",
+      "HABITO_IDT": 2
+    }
+  ],
+  "HABITOCUA": [
+    {
+      "HABITOCUA_TIPOLIM": "<=",
+      "HABITOCUA_CANTIDAD": 60,
+      "HABITOCUA_IDH": 15
+    },
+    {
+      "HABITOCUA_TIPOLIM": "<=",
+      "HABITOCUA_CANTIDAD": 60,
+      "HABITOCUA_IDH": 16
+    },
+    {
+      "HABITOCUA_TIPOLIM": "<=",
+      "HABITOCUA_CANTIDAD": 1,
+      "HABITOCUA_IDH": 17
+    }
+  ],
+  "HISTORIALPROD": [],
+  "OBJETIVO": [
+    {
+      "OBJETIVO_ID": 3,
+      "OBJETIVO_NOM": "cukeado",
+      "OBJETIVO_IDH": 20,
+      "OBJETIVO_FECHAINI": "2024-08-21T04:00:00.000Z",
+      "OBJETIVO_FECHAFIN": "2024-08-23T04:00:00.000Z",
+      "OBJETIVO_REPETICIONES": 2
+    }
+  ],
+  "REGACTIVIDAD": [],
+  "REGLA": [
+    {
+      "REGLA_ID": 3,
+      "REGLA_NOM": "Revisar metas semanales",
+      "REGLA_TIPO": "OB",
+      "REGLA_ESTADO": "A"
+    },
+    {
+      "REGLA_ID": 4,
+      "REGLA_NOM": "Optimizar procesos de trabajo",
+      "REGLA_TIPO": "OP",
+      "REGLA_ESTADO": "A"
+    },
+    {
+      "REGLA_ID": 5,
+      "REGLA_NOM": "Automatizar reportes mensuales",
+      "REGLA_TIPO": "OP",
+      "REGLA_ESTADO": "A"
+    },
+    {
+      "REGLA_ID": 6,
+      "REGLA_NOM": "pinga MAXIMA ",
+      "REGLA_TIPO": "OB",
+      "REGLA_ESTADO": "A"
+    }
+  ],
+  "REGLAHABITO": [],
+  "THABITO": [
+    {
+      "THABITO_ID": 1,
+      "THABITO_NOM": "Cuantitativo"
+    },
+    {
+      "THABITO_ID": 2,
+      "THABITO_NOM": "Binario"
+    }
+  ]
+}

@@ -44,6 +44,19 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error:', error));
 
+        fetch(`/modificar-regla/${reglaId}/detalles`)
+        .then(response => response.json())
+        .then(regla => {
+            console.log('Datos de la regla:', regla); // Verifica los datos de la regla
+
+            // Actualizar los campos del formulario
+            nuevo_nombre.value = regla.REGLA_NOM;
+            tipo_regla.value = regla.REGLA_TIPO;
+            estado_regla.value = regla.REGLA_ESTADO;
+        })
+        .catch(error => console.error('Error:', error));
+            
+
         dinamico.style.display = 'block';
     });
 
@@ -71,12 +84,20 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(response => console.log("Success:", response))
+        .then(data => {
+            if (data.success) {
+                alert('Regla modificada con éxito');
+                window.location.href = '/gestor-regla'; // Redirigir al gestor de reglas
+            } else {
+                alert('Hubo un problema al modificar la regla: ' + data.error);
+            }
+        })
         .catch(error => console.error('Error:', error));
     });
 
     // Botón para volver atrás
     document.getElementById('btn-back').addEventListener('click', function() {
-        window.location.href = '/gestor-regla'; // Redirigir a la página de gestor de hábitos
+        window.location.href = '/gestor-regla'; // Redirigir a la página de gestor de reglas
     });
 });
+

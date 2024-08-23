@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <link rel="stylesheet" href="/css/historialProductividadStyle.css">
+</head>
+<body>
+    <%- include('partial/_header') %> <!-- Incluir el header -->
+
+    <main id="contenido">
+        <h1>Historial de productividad</h1>
+        
+        <label for="habit-listbox">Seleccione una regla a visualizar:</label>
+        <select id="habit-listbox">
+            <option value="" disabled selected>Seleccione una regla</option>
+            <% reglas.forEach(regla => { %>
+                <option value="<%= regla.REGLA_ID %>">
+                    <%= regla.REGLA_NOM %>
+                </option>
+            <% }) %>
+        </select>
+    
+        <!-- Contenedor para la tabla de actividades -->
+        <div id="activity-table-container" class="table-container"></div>
+    </main>
+    
+
+    <!-- Incluir el archivo JavaScript -->
+    <script src="/js/historialProductividad.js"></script>
+</body>
+</html>

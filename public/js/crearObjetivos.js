@@ -15,6 +15,14 @@ document.addEventListener('DOMContentLoaded', function() {
         f_f = fecha_final.value;
         nom = nombre.value;
 
+        if (rep < 0 || isNaN(rep)) {
+            // Mostrar mensaje de error
+            if (errorMessageElement) {
+                errorMessageElement.textContent = 'La cantidad de repeticiones debe ser mayor o igual a 0.\n';
+            }
+            return; // Detener el envío del formulario
+        }
+
         data = {
             habito: habit,
             fecha_ini: f_i,

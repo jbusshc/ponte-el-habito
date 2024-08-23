@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= titulo %></title>
-    <link rel="stylesheet" href="/css/crearReglasStyle.css">
+    <link rel="stylesheet" href="/css/crearObjetivosStyle.css">
     
     <!-- Incluir CSS de Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
@@ -20,7 +20,7 @@
 
             <label for="nombre">Nombre del objetivo:</label>
             <input type="text" id="nombre" name="objetivoName" required placeholder="Nombre del objetivo">
-            <input type="text" id="repeticiones" name="cantidad" style="display: block;" placeholder="Cantidad de repeticiones" required>
+            <input type="number" id="repeticiones" name="cantidad" style="display: block;" placeholder="Cantidad de repeticiones" required>
             
             <label for="fecha-inicial">Fecha Inicio:</label>
             <input type="date" id="fecha-inicial" name="fechaInicial" required>

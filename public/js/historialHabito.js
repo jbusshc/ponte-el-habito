@@ -5,35 +5,56 @@ document.getElementById('habit-listbox').addEventListener('change', function() {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            if (data.actividades.length > 0) {
-                let tableHtml = `
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Fecha</th>
-                                <th>Cantidad</th>
-                            </tr>
-                        </thead>
-                        <tbody>`;
-                
+            const container = document.getElementById('activity-table-container');
+            let tableHtml = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre del hábito</th>
+                            <th>Fecha</th>`;
+
+            if (data.actividades && data.actividades.length > 0) {
+                if (data.actividades[0].HABITO_IDT == 1) {
+                    tableHtml += `<th>Cantidad</th>`;
+                } else if (data.actividades[0].HABITO_IDT == 2) {
+                    tableHtml += `<th>Logrado</th>`;
+                }
+            } else {
+                tableHtml += `<th>Cantidad/Logrado</th>`;
+            }
+
+            tableHtml += `</tr></thead><tbody>`;
+
+            if (data.actividades && data.actividades.length > 0) {
                 data.actividades.forEach(activity => {
+                    // Format the date here
+                    const fechaFormateada = new Date(activity.REGACTIVIDAD_FECHA).toLocaleDateString('es-ES', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    });
+
+                    let cantidadOrLogrado = activity.REGACTIVIDAD_CANTIDAD;
+
                     tableHtml += `
                         <tr>
-                            <td>${activity.REGACTIVIDAD_ID}</td>
-                            <td>${activity.REGACTIVIDAD_FECHA}</td>
-                            <td>${activity.REGACTIVIDAD_CANTIDAD}</td>
+                            <td>${activity.HABITO_NOM}</td>
+                            <td>${fechaFormateada}</td>
+                            <td>${cantidadOrLogrado}</td>
                         </tr>`;
                 });
-
-                tableHtml += `
-                        </tbody>
-                    </table>`;
-
-                document.getElementById('activity-table-container').innerHTML = tableHtml;
             } else {
-                document.getElementById('activity-table-container').innerHTML = '<p>No se encontraron actividades para este hábito.</p>';
+                tableHtml += `
+                    <tr>
+                        <td colspan="3" style="text-align: center;">No hay registros de actividades para este hábito.</td>
+                    </tr>`;
             }
+
+            tableHtml += `
+                    </tbody>
+                </table>`;
+
+            container.innerHTML = tableHtml;
         })
         .catch(error => {
             console.error('Error al obtener las actividades:', error);
