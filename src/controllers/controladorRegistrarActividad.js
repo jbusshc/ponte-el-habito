@@ -17,6 +17,9 @@ class ControladorRegistrarActividad {
         const { fecha, habitoId, cantidad } = req.body;
         try {
             await Modelo.regact.crear_actividad(fecha, habitoId, cantidad);
+            console.log('Actividad registrada:', fecha, habitoId, cantidad);
+            await Modelo.histprod.actualizar_histprod_por_habito(habitoId, fecha);
+            console.log('Historial de producción actualizado');
             res.json({ success: true });
         } catch (err) {
             console.error('Error al registrar la actividad:', err);

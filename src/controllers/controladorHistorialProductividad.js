@@ -13,22 +13,24 @@ class ControladorHistorialProductividad {
         });
     }
 
-    async obtenerActividadPorProductividad(req, res) {
-        const habitId = req.params.idh;
+    async solicitarHistorialProductividad(req, res) {
+        const idr = req.params.idr; 
+        const fechai = req.query.fechai; 
+        const fechaf = req.query.fechaf;
 
         try {
-            const actividades = await Modelo.regact.obtener_actividad_por_id(habitId);
+            const histprod = await Modelo.histprod.visualizar_historial(idr, fechai, fechaf);
             
-            if (actividades.length > 0) {
+            if (histprod.length > 0) {
                 
-                res.json({ actividades: actividades });  // Enviar actividades como JSON
+                res.json({ histprod: histprod });  
                 
             } else {
-                res.json({ actividades: [] });  // Si no hay actividades, enviar una matriz vacía
+                res.json({ histprod: [] });  // Si no hay actividades, enviar una matriz vacía
             }
         } catch (err) {
-            console.error('Error al obtener la actividad:', err);
-            res.status(500).json({ error: 'Error obteniendo la actividad' });
+            console.error('Error al obtener el historial de productividad:', err);
+            res.status(500).json({ error: 'Error obteniendo el historial de productividad' });
         }
     }
 }

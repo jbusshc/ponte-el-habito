@@ -15,12 +15,21 @@ document.addEventListener('DOMContentLoaded', function() {
         f_f = fecha_final.value;
         nom = nombre.value;
 
+        // Validar fechas
+        const fechaInicialDate = new Date(f_i);
+        const fechaFinalDate = new Date(f_f);
+
         if (rep < 0 || isNaN(rep)) {
             // Mostrar mensaje de error
             if (errorMessageElement) {
                 errorMessageElement.textContent = 'La cantidad de repeticiones debe ser mayor o igual a 0.\n';
             }
             return; // Detener el envío del formulario
+        }
+
+        if (fechaFinalDate < fechaInicialDate) {
+            alert('La fecha final no puede ser anterior a la fecha inicial.');
+            return; // Detener la ejecución si la validación falla
         }
 
         data = {

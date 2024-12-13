@@ -1,78 +1,202 @@
+/* ModificarObjetivosStyle.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+main {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #666;
+  font-weight: bold;
+}
+
+select, input[type="text"], input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.date-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.date-container .form-group {
+  flex: 1;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-confirm {
+  background-color: #4CAF50;
+  color: #fff;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.btn-confirm:hover {
+  background-color: #45a049;
+}
+
+.btn-back {
+  background-color: #ccc;
+  color: #333;
+  flex: 1;
+}
+
+.btn-back:hover {
+  background-color: #bbb;
+}
+
+/* Media queries para pantallas más pequeñas */
+@media (max-width: 600px) {
+  main {
+      padding: 15px;
+  }
+
+  .date-container {
+      flex-direction: column;
+      gap: 0;
+  }
+
+  .date-container .form-group {
+      margin-bottom: 20px;
+  }
+
+  button {
+      font-size: 14px;
+      padding: 8px 16px;
+  }
+}
+
+select, input[type="date"], input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+select:focus, input[type="date"]:focus, input[type="number"]:focus {
+  border-color: #4CAF50;
+  outline: none;
+  background-color: #fff;
+}
+
 /* General Styles */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-  }
-  
-  main {
-    max-width: 800px; /* Ajuste de tamaño para la matriz */
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 10px;
-    color: #666;
-    font-weight: bold;
-  }
-  
-  select, input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  /* Styles for the Data Table */
-  .table-container {
-    margin-top: 20px;
-    overflow-x: auto;
-  }
-  
-  .table-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  .table-container th, .table-container td {
-    padding: 12px 15px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  .table-container th {
-    background-color: #4CAF50;
-    color: white;
-    font-weight: bold;
-  }
-  
-  .table-container tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .table-container tr:hover {
-    background-color: #ddd;
-  }
-  
-  .table-container td {
-    color: #555;
-    text-align: center;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+main {
+  max-width: 800px; /* Ajuste de tamaño para la matriz */
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #666;
+  font-weight: bold;
+}
+
+select, input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Styles for the Data Table */
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table-container th, .table-container td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.table-container tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-container tr:hover {
+  background-color: #ddd;
+}
+
+.table-container td {
+  color: #555;
+  text-align: center;
+}

@@ -43,8 +43,10 @@ class ControladorModificarRegla {
 
     async solicitarModificarRegla(req, res) {
         const { nombre, tipo, estado, id } = req.body;
+        
 
         const habitos = req.body.habitos;
+
         try {
 
             const reglaActual = await Modelo.regla.obtener_regla_por_id(id);
@@ -55,6 +57,17 @@ class ControladorModificarRegla {
 
             // Proceder a modificar el hábito con los valores finales
             await Modelo.regla.modificar_regla(id, nombreFinal, tipoFinal, estadoFinal, habitos);
+            if (estadoFinal == 'A' && reglaActual.REGLA_ESTADO == 'I') { 
+                // Código de importación para la fecha en formato "YYYY-MM-DD"
+                const currentDate = new Date();
+                const year = currentDate.getFullYear();
+                const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+                const day = String(currentDate.getDate()).padStart(2, '0');
+
+                const fecha_hoy = `${year}-${month}-${day}`;
+                await Modelo.histprod.actualizar_histprod(id, fecha_hoy);
+            }
+            
             res.json({ success: true });
         } catch (err) {
             console.error('Error al modificar el hábito:', err);

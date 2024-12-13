@@ -90,3 +90,13 @@ select:focus, input[type="date"]:focus, input[type="number"]:focus {
     outline: none;
     background-color: #fff;
 }
+
+.date-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.date-container .form-group {
+  flex: 1;
+}

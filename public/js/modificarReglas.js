@@ -69,11 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const estado = estado_regla.value;
         const habitList = $('#habit-list').val();
 
+        if(habitList.length == 0){
+            alert('Ingrese al menos un hábito');
+            return;
+        }
+
         let data = {
             id: reglaId,
             nombre: nombre,
             tipo: tipo,
-            habitos: habitList
+            habitos: habitList,
+            estado: estado
         };
 
         fetch(`/modificar-regla/${reglaId}/update`, { // Asegúrate de que la URL coincida

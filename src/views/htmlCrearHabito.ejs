@@ -24,12 +24,12 @@
                 <option value="quantitative">Cuantitativo</option>
             </select>
             <div id="error-message" style="color: red;"></div>
-
+            <br>
             <!-- Elementos que se habilitarán dinámicamente -->
             <div id="dynamic-elements">
-                <input type="number" id="textbox1" name="cantidad" style="display: none;" placeholder="Cantidad de repeticiones" required>
+                <input type="number" id="cantidad" name="cantidad" style="display: none;" placeholder="Cantidad de repeticiones" required>
                 
-                <select id="listbox" name="tipolim" style="display: none;" required>
+                <select id="tipolim" name="tipolim" style="display: none;" required>
                     <option value="" disabled selected>Seleccione una opción</option>
                     <option value="<="><=</option>
                     <option value="<"><</option>
@@ -40,11 +40,11 @@
             </div>
 
             <button type="submit" class="btn-confirm">Aceptar</button>
-            <button type="button" class="btn-back" onclick="window.location.href='/gestor-habitos';">Volver</button>
+            <button type="button" class="btn-back" id="btn-back" onclick="window.location.href='/gestor-habitos';">Volver</button>
         </form>
     </main>
 
-    //
+    
 
     <!-- Incluir el archivo JavaScript -->
     <script src="/js/crearHabitos.js"></script>

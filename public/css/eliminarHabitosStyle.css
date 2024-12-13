@@ -37,16 +37,38 @@ select option {
     padding: 10px;
 }
 
-.btn-delete {
-    margin-top: 20px;
+button {
     padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }  
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+.btn-delete {
     font-size: 16px;
     color: white;
     background-color: #d9534f;
-    border: none;
-    cursor: pointer;
+    flex: 1;
+    margin-right: 10px;
 }
 
 .btn-delete:hover {
     background-color: #c9302c;
 }
+
+.btn-back {
+    background-color: #ccc;
+    color: #333;
+    flex: 1;
+  }
+  
+  .btn-back:hover {
+    background-color: #bbb;
+  }

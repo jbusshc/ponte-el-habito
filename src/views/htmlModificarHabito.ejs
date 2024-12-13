@@ -22,7 +22,7 @@
                 </option>
             <% }) %>
         </select>
-
+        
         <!-- Elementos que se habilitarán dinámicamente -->
         <div id="dynamic-elements">
             <input type="text" id="nuevo-nombre" style="display: none;" placeholder="Nuevo nombre del hábito">
@@ -41,7 +41,7 @@
         <!-- Botones que siempre estarán visibles, alineados de la misma forma que en Registrar Hábito -->
         <div id="action-buttons" class="button-group">
             <button id="accept-button" class="btn-confirm">Aceptar</button>
-            <button id="btn-back" type="button" class="btn-back">Volver</button>
+            <button onclick='history.back()' class='btn-back'>Volver</button>
         </div>
     </main>
 

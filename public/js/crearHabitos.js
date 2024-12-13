@@ -1,14 +1,19 @@
+const cantidadE = document.getElementById('cantidad');
+const tipolimE = document.getElementById('tipolim');
+
 document.getElementById('habit-type').addEventListener('change', function() {
     const habitType = this.value;
-    const textbox1 = document.getElementById('textbox1');
-    const listbox = document.getElementById('listbox');
 
     if (habitType === 'quantitative') {
-        textbox1.style.display = 'block';
-        listbox.style.display = 'block';
+        cantidadE.style.display = 'block';
+        tipolimE.style.display = 'block';
+        cantidadE.setAttribute('required', 'required');
+        tipolimE.setAttribute('required', 'required');
     } else {
-        textbox1.style.display = 'none';
-        listbox.style.display = 'none'; 
+        cantidadE.style.display = 'none';
+        tipolimE.style.display = 'none'; 
+        cantidadE.removeAttribute('required');
+        tipolimE.removeAttribute('required');
     }
 });
 
@@ -17,8 +22,8 @@ document.getElementById('register-habit-form').addEventListener('submit', functi
 
     const habitName = document.getElementById('habit-name').value;
     const habitType = document.getElementById('habit-type').value;
-    const cantidad = document.getElementById('textbox1').value;
-    const tipolim = document.getElementById('listbox').value;
+    const cantidad = cantidadE.value;
+    const tipolim = tipolimE.value;
 
     const errorMessageElement = document.getElementById('error-message');
     

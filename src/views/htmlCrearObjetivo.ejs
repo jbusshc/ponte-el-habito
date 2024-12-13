@@ -22,12 +22,18 @@
             <input type="text" id="nombre" name="objetivoName" required placeholder="Nombre del objetivo">
             <input type="number" id="repeticiones" name="cantidad" style="display: block;" placeholder="Cantidad de repeticiones" required>
             
-            <label for="fecha-inicial">Fecha Inicio:</label>
-            <input type="date" id="fecha-inicial" name="fechaInicial" required>
-            <br><br>
-            <label for="fecha-final">Fecha Final:</label>
-            <input type="date" id="fecha-final" name="fechaFinal" required>
-            <br><br>
+            <!-- Contenedor para las fechas -->
+            <div class="date-container">
+                <div class="form-group">
+                    <label for="fecha-inicial">Fecha Inicio:</label>
+                    <input type="date" id="fecha-inicial" name="fechaInicial" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha-final">Fecha Final:</label>
+                    <input type="date" id="fecha-final" name="fechaFinal" required>
+                </div>
+            </div>
 
             <label for="habit-list">Seleccionar hábito:</label>
             <select id="habit-list" name="habitList[]" required>

@@ -1,6 +1,8 @@
 const habitListbox = document.getElementById('habitoId');
 const habito_cuantitativo = document.getElementById('habito-cuantitativo');
 const habito_binario = document.getElementById('habito-binario');
+const errorMessageElement = document.getElementById('error-message');
+const errorcantidad = document.getElementById('error-cantidad');
 valor = '';
 selectedHabitId = '';
 tipo_habito = '';
@@ -28,14 +30,28 @@ document.getElementById('register-activity-form').addEventListener('submit', fun
 
     const fecha = document.getElementById('fecha').value; 
 
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(currentDate.getDate()).padStart(2, '0');
+
+    const fecha_hoy = `${year}-${month}-${day}`;
+
+    if(fecha_hoy < fecha){ 
+        if (errorMessageElement) {
+            errorMessageElement.textContent = 'La fecha no puede ser posterior a la de hoy.\n';
+        }
+        return; // Detener el envío del formulario
+    }
+
     if(tipo_habito == 1){
         
         const cantidad = document.getElementById('cantidad').value;
 
         if (cantidad < 0 || isNaN(cantidad)) {
             // Mostrar mensaje de error
-            if (errorMessageElement) {
-                errorMessageElement.textContent = 'La cantidad debe ser mayor o igual a 0.\n';
+            if (errorcantidad) {
+                errorcantidad.textContent = 'La cantidad debe ser mayor o igual a 0.\n';
             }
             return; // Detener el envío del formulario
         }

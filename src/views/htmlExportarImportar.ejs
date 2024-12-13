@@ -12,18 +12,20 @@
         <h2>Exportar datos</h2>
         <div class="btn-container">
             <!-- Botón de Exportar -->
-            <form action="/exportar" method="post">
+            <form id="exportForm" action="/exportar" method="post">
                 <button class="btn btn-export" type="submit">Exportar</button>
             </form>
         </div>
         <!-- Formulario de Importación -->
         <div id="import-form">
             <h3>Importar datos</h3>
-            <form action="/importar" method="post" enctype="multipart/form-data">
-                <input type="file" name="fileInput" id="fileInput" accept=".json">
+            <form id="importForm" action="/importar" method="post" enctype="multipart/form-data">
+                <input type="file" name="fileInput" id="fileInput" accept=".json" required>
                 <button class="btn btn-import" type="submit">Importar</button>
             </form>
+            <div id="importResult"></div> <!-- Contenedor para mostrar resultados -->
         </div>
     </main>
+    <script src="/js/exportarImportar.js"></script>
 </body>
 </html>

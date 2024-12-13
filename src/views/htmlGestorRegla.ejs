@@ -6,7 +6,7 @@
     <title><%= titulo %></title>
     <link rel="stylesheet" href="/css/gestorReglasStyle.css">
 </head>
-<body>  
+<body>
     <%- include('partial/_header') %>  <!-- Incluir el header -->
     <main>
         <h2>Gestor de Reglas de productividad</h2>
@@ -17,6 +17,7 @@
             <button class="btn-modificar" onclick="window.location.href='/modificar-regla'">Modificar Regla</button>
             <button class="btn-eliminar" onclick="window.location.href='/eliminar-regla'">Eliminar Regla</button>
         </div>
+        
         <!-- Tabla para mostrar los hábitos -->
         <table>
             <thead>
@@ -24,31 +25,33 @@
                     <th>Regla</th>
                     <th>Tipo Regla</th>
                     <th>Estado Regla</th>
+                    <th>Hábitos</th>
                 </tr>
             </thead>
             <tbody>
                 <% reglas.forEach(regla => { %>
                     <%
-                        let tipo_regla = '';
-                        if (regla.REGLA_TIPO == 'OB') {
-                            tipo_regla = 'Obligatoria';
-                        } else {
-                            tipo_regla = 'Opcional';
-                        }
-                    %>
-                    <%
-                        let estado_regla = '';
-                        if (regla.REGLA_ESTADO == 'A') {
-                            estado_regla = 'Activa';
-                        } else {
-                            estado_regla = 'Inactiva';
-                        }
+                        let tipo_regla = regla.REGLA_TIPO === 'OB' ? 'Obligatoria' : 'Opcional';
+                        let estado_regla = regla.REGLA_ESTADO === 'A' ? 'Activa' : 'Inactiva';
                     %>
                     <tr>
                         <td><%= regla.REGLA_NOM %></td>
                         <td><%= tipo_regla %></td>
                         <td><%= estado_regla %></td>
+                        <td id="habitos-<%= regla.REGLA_ID %>">Cargando hábitos...</td>
                     </tr>
+                    <script>
+                        // Fetch para obtener los hábitos por regla
+                        fetch(`/gestor-regla/habitos/<%= regla.REGLA_ID %>`)
+                        .then(response => response.json())
+                        .then(habitos => {
+                            const habitosTd = document.getElementById('habitos-<%= regla.REGLA_ID %>');
+                            habitosTd.innerHTML = habitos.map(h => h.HABITO_NOM).join(', ');
+                        })
+                        .catch(error => {
+                            console.error('Error al obtener los hábitos:', error);
+                        });
+                    </script>
                 <% }) %>
             </tbody>
         </table>

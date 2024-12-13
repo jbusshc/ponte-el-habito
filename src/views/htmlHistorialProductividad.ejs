@@ -11,16 +11,36 @@
 
     <main id="contenido">
         <h1>Historial de productividad</h1>
+        <form id="hist-prod">
         
-        <label for="habit-listbox">Seleccione una regla a visualizar:</label>
-        <select id="habit-listbox">
-            <option value="" disabled selected>Seleccione una regla</option>
-            <% reglas.forEach(regla => { %>
-                <option value="<%= regla.REGLA_ID %>">
-                    <%= regla.REGLA_NOM %>
-                </option>
-            <% }) %>
-        </select>
+            <label for="rule-listbox">Seleccione una regla a visualizar:</label>
+            <select id="rule-listbox" >
+                <option value="" disabled selected>Seleccione una regla</option>
+                <% reglas.forEach(regla => { %>
+                    <option value="<%= regla.REGLA_ID %>">
+                        <%= regla.REGLA_NOM %>
+                    </option>
+                <% }) %>
+            </select>
+
+            <!-- Contenedor para las fechas -->
+            <div class="date-container">
+                <div class="form-group">
+                    <label for="fecha-inicial">Fecha Inicio:</label>
+                    <input type="date" id="fecha-inicial" name="fechaInicial" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha-final">Fecha Final:</label>
+                    <input type="date" id="fecha-final" name="fechaFinal" required>
+                </div>
+            </div>
+            
+            <div id="error-message" style="color: red;"></div>
+            <br>
+            <button type="submit" class="btn-confirm">Visualizar</button>
+            <button type="button" class="btn-back" onclick="window.location.href='/';">Volver</button>
+        </form>
     
         <!-- Contenedor para la tabla de actividades -->
         <div id="activity-table-container" class="table-container"></div>

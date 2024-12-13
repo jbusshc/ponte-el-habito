@@ -2,10 +2,13 @@ class VistaPrincipal {
     constructor() {}
 
     // Método para renderizar la vista de la Pagina de Inicio
-    renderizarLanding(res, habitos) {
+    render(res, habitos_completados, habitos_no_completados, reglas_completadas, reglas_no_completadas) {
         res.render('htmlPaginaInicio', { 
             titulo: 'Bienvenido a Ponte el Hábito',
-            habitos: habitos,
+            habitos_completados: habitos_completados,
+            habitos_no_completados: habitos_no_completados,
+            reglas_completadas: reglas_completadas,
+            reglas_no_completadas: reglas_no_completadas,
         });
     }
 

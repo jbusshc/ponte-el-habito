@@ -5,42 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= titulo %></title>
     <link rel="stylesheet" href="/css/paginaInicioStyle.css">
+    <style>
+        /* Additional styles to handle layout and colors */
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .table-container {
+            width: 48%;
+        }
+        .completado {
+            background-color: #d4edda; /* Green background for completed items */
+        
+        }
+        .no-completado {
+            background-color: #f8d7da; /* Red background for non-completed items */
+        
+        }
+    </style>
 </head>
 <body>
     <%- include('partial/_header') %>  <!-- Incluir el header -->
     
-    <main>
-        <h2>¿Qué hábito cumpliremos hoy?</h2>
-        
-        <!-- Tabla para mostrar los hábitos -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre del Hábito</th>
-                    <th>Tipo de Hábito</th>
-                    <th>Cantidad de repeticiones</th>
-                    <th>Relación</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% habitos.forEach(habito => { %>
-                    <%
-                        let tipo_habito = '';
-                        if (habito.HABITO_IDT == 1) {
-                            tipo_habito = 'Cuantitativo';
-                        } else {
-                            tipo_habito = 'Binario';
-                        }
-                    %>
-                    <tr>
-                        <td><%= habito.HABITO_NOM %></td>
-                        <td><%= tipo_habito %></td>
-                        <td><%= habito.HABITOCUA_CANTIDAD %></td>
-                        <td><%= habito.HABITOCUA_TIPOLIM %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
+    <main >
+        <div><h2 style="text-align:center;">¿Qué hábito cumpliremos hoy?</h2></div>
+
+        <div class="container">
+            <!-- Left side tables for habits -->
+            <div class="table-container">
+                <!-- Table for completed habits -->
+                <h3 style="text-align:center;">Hábitos completados</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre del Hábito</th>
+                            <th>Tipo de Hábito</th>
+                            <th>Cantidad de repeticiones</th>
+                            <th>Relación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% habitos_completados.forEach(habito => { %>
+                            <tr class="completado">
+                                <td><%= habito.HABITO_NOM %></td>
+                                <td><%= habito.HABITO_IDT == 1 ? 'Cuantitativo' : 'Binario' %></td>
+                                <td><%= habito.HABITOCUA_CANTIDAD %></td>
+                                <td><%= habito.HABITOCUA_TIPOLIM %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+
+                <!-- Table for non-completed habits -->
+                <h3 style="text-align:center;">Hábitos no completados</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre del Hábito</th>
+                            <th>Tipo de Hábito</th>
+                            <th>Cantidad de repeticiones</th>
+                            <th>Relación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% habitos_no_completados.forEach(habito => { %>
+                            <tr class="no-completado">
+                                <td><%= habito.HABITO_NOM %></td>
+                                <td><%= habito.HABITO_IDT == 1 ? 'Cuantitativo' : 'Binario' %></td>
+                                <td><%= habito.HABITOCUA_CANTIDAD %></td>
+                                <td><%= habito.HABITOCUA_TIPOLIM %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Right side tables for rules -->
+            <div class="table-container">
+                <!-- Table for completed rules -->
+                <h3 style="text-align:center;">Reglas completadas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre de la Regla</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% reglas_completadas.forEach(regla => { %>
+                            <tr class="completado">
+                                <td><%= regla.REGLA_NOM %></td>
+                               <td><%= regla.REGLA_TIPO == 'OB' ? 'Obligatoria' : 'Opcional' %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+
+                <!-- Table for non-completed rules -->
+                <h3 style="text-align:center;">Reglas no completadas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre de la Regla</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% reglas_no_completadas.forEach(regla => { %>
+                            <tr class="no-completado">
+                                <td><%= regla.REGLA_NOM %></td>
+                                <td><%= regla.REGLA_TIPO == 'OB' ? 'Obligatoria' : 'Opcional' %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </main>
 </body>
 </html>

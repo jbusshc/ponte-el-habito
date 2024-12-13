@@ -6,6 +6,6 @@ const controladorHistorialProductividad = require('../controllers/controladorHis
 router.get('/historial-productividad', controladorHistorialProductividad.obtenerHistorialProductividad);
 
 // Ruta para obtener la productividad 
-router.get('/historial-productividad/:idr', controladorHistorialProductividad.obtenerActividadPorProductividad);
+router.get('/historial-productividad/:idr', controladorHistorialProductividad.solicitarHistorialProductividad);
 
 module.exports = router;

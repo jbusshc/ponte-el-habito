@@ -45,6 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let data;
 
+        const errorMessageElement = document.getElementById('error-message');
+    
+        // Limpiar mensaje de error previo
+        if (errorMessageElement) {
+            errorMessageElement.textContent = '';
+        }
+
         if (tipo_habito == 1 && (cantidadValue < 0 || isNaN(cantidadValue))) {
             // Mostrar mensaje de error
             if (errorMessageElement) {
